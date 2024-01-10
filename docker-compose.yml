@@ -1,0 +1,29 @@
+version: '3.8'
+name: hivbase
+services:
+  hiv-backend:
+    container_name: hiv-backend
+    image: alexkrasnov123/hiv-test:backend
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: "host.docker.internal"
+      DB_PORT: "5432"
+    deploy:
+      resources:
+        limits:
+          memory: 25600M
+      restart_policy:
+        condition: on-failure
+
+  hiv-client:
+    container_name: hiv-client
+    image: alexkrasnov123/hiv-test:clientdist
+    ports:
+      - "320:4200"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+      restart_policy:
+        condition: on-failure
